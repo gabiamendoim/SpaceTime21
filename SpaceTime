@@ -1,0 +1,473 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpaceTime — Diário</title>
+<style>
+:root{--bg:#edf6fc;--bg-soft:#f7fbfe;--card:#fff;--card-soft:#f5faff;--text:#30475a;--text-soft:#65798a;--primary:#8eb9d8;--primary-dark:#5f91b5;--primary-light:#dcecf7;--accent:#b9d9eb;--border:#d8e7f1;--danger:#c77d7d;--danger-bg:#fff0f0;--shadow:0 12px 35px rgba(65,105,135,.1);--input:#fff;--calendar:#f4f9fc;--progress:#8eb9d8}
+body.space-theme{--bg:#07111f;--bg-soft:#0b1728;--card:#101e31;--card-soft:#14253a;--text:#e5eef8;--text-soft:#9eafc3;--primary:#718fc4;--primary-dark:#8da8d8;--primary-light:#1d304d;--accent:#657db2;--border:#263b57;--danger:#d68b96;--danger-bg:#321c29;--shadow:0 15px 40px rgba(0,0,0,.28);--input:#0d1a2b;--calendar:#0d1b2d;--progress:#718fc4;background:radial-gradient(circle at 8% 14%,rgba(210,226,255,.5) 0 1px,transparent 2px),radial-gradient(circle at 18% 52%,rgba(128,174,255,.35) 0 1px,transparent 2px),radial-gradient(circle at 35% 22%,rgba(210,225,255,.3) 0 1.5px,transparent 2.5px),radial-gradient(circle at 52% 76%,rgba(142,180,255,.32) 0 1px,transparent 2px),radial-gradient(circle at 72% 28%,rgba(211,225,255,.42) 0 1px,transparent 2px),radial-gradient(circle at 91% 67%,rgba(159,196,255,.34) 0 1.5px,transparent 2.5px),radial-gradient(ellipse at 50% 35%,rgba(104,139,220,.2),transparent 38%),radial-gradient(ellipse at 20% 80%,rgba(65,112,190,.12),transparent 35%),linear-gradient(180deg,#030711,#071326 50%,#030813);background-size:180px 160px,270px 220px,230px 190px,320px 260px,100% 100%,100% 100%}
+body.theme-wine{--bg:#fbf4f5;--bg-soft:#fffafb;--card:#fff;--card-soft:#fff5f6;--text:#512f38;--text-soft:#80636b;--primary:#8f3f50;--primary-dark:#6f2939;--primary-light:#f4dfe4;--accent:#d8a4af;--border:#ead0d6;--danger:#b84b5b;--danger-bg:#fff0f2;--shadow:0 12px 35px rgba(120,55,70,.1);--input:#fff;--calendar:#fff7f8;--progress:#8f3f50}
+body.theme-green{--bg:#f2f8f3;--bg-soft:#f9fcf9;--card:#fff;--card-soft:#edf7ef;--text:#304d39;--text-soft:#657b6b;--primary:#5d9b70;--primary-dark:#3f7b54;--primary-light:#dceee1;--accent:#a8cdb2;--border:#d3e5d7;--danger:#b85d68;--danger-bg:#fff0f2;--shadow:0 12px 35px rgba(60,110,75,.1);--input:#fff;--calendar:#f4faf5;--progress:#5d9b70}
+body.space-theme.theme-wine{--bg:#211017;--bg-soft:#2b141d;--card:#351b26;--card-soft:#40212d;--text:#f6e7eb;--text-soft:#c8aeb7;--primary:#b76579;--primary-dark:#d58b9c;--primary-light:#512b38;--accent:#7d4657;--border:#5b3342;--danger:#e19aa7;--danger-bg:#4b2530;--shadow:0 15px 40px rgba(0,0,0,.3);--input:#2d1720;--calendar:#2d1721;--progress:#b76579}
+body.space-theme.theme-green{--bg:#0d1d13;--bg-soft:#11261a;--card:#173321;--card-soft:#1d3d28;--text:#e4f3e8;--text-soft:#a9c2af;--primary:#70ad82;--primary-dark:#91c49f;--primary-light:#244d32;--accent:#4d7d5c;--border:#31563d;--danger:#e49aa2;--danger-bg:#49272d;--shadow:0 15px 40px rgba(0,0,0,.3);--input:#122a1a;--calendar:#142c1c;--progress:#70ad82}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(circle at 10% 12%,rgba(80,139,205,.28) 0 1px,transparent 2px),radial-gradient(circle at 24% 42%,rgba(128,178,231,.24) 0 1.5px,transparent 2.5px),radial-gradient(circle at 78% 16%,rgba(94,153,220,.25) 0 1px,transparent 2px),radial-gradient(circle at 91% 68%,rgba(137,190,238,.25) 0 1.5px,transparent 2.5px),radial-gradient(circle at 52% 86%,rgba(83,145,211,.2) 0 1px,transparent 2px),radial-gradient(ellipse at 50% 30%,rgba(128,180,230,.16),transparent 45%),linear-gradient(180deg,#dceeff 0%,#f3f9ff 44%,#dcecf9 100%);background-size:170px 150px,230px 190px,280px 210px,310px 240px,190px 170px,100% 100%,100% 100%;color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;transition:.3s}button,input,textarea{font:inherit}button{-webkit-tap-highlight-color:transparent}.app{width:min(820px,100%);margin:auto;padding:24px 16px 55px}
+header{position:relative;text-align:center;margin-bottom:22px}.logo{margin:0;font-size:38px;line-height:1;letter-spacing:-1.8px;font-weight:850;text-shadow:0 0 8px rgba(125,185,235,.22),0 4px 22px rgba(65,120,180,.2)}.logo span{color:var(--primary-dark)}.logo-subtitle{margin:8px 0 0;color:var(--text-soft);font-size:14px}
+.theme-toggle{position:absolute;top:0;right:0;width:48px;height:28px;border:1px solid var(--border);border-radius:999px;background:var(--card);cursor:pointer;padding:3px}.theme-toggle::after{content:"";display:block;width:20px;height:20px;border-radius:50%;background:var(--primary);transition:.25s}.space-theme .theme-toggle::after{transform:translateX(20px)}
+.card{background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(237,247,255,.88));border:1px solid rgba(143,191,227,.82);border-radius:24px;padding:20px;margin:15px 0;box-shadow:0 16px 42px rgba(45,93,140,.16),inset 0 1px 0 rgba(255,255,255,.95);backdrop-filter:blur(8px)}h2{margin:0;font-size:18px}.section-title-row,.calendar-header,.entry-header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.icon-button,.add-button,.nav-button{border:0;background:var(--primary-light);color:var(--primary-dark);cursor:pointer;transition:.15s}.icon-button:hover,.add-button:hover,.nav-button:hover{transform:translateY(-1px);background:var(--accent)}.add-button{width:35px;height:35px;border-radius:11px;font-size:22px}.nav-button{width:35px;height:35px;border-radius:10px;font-size:20px}.danger-button{border:0;background:var(--danger-bg);color:var(--danger);border-radius:9px;padding:6px 9px;cursor:pointer}
+.calendar-title{font-weight:800}.calendar-nav{display:flex;gap:6px}.weekdays,.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.weekdays{margin-top:13px}.weekdays div{text-align:center;font-size:10px;color:var(--text-soft);font-weight:800;padding:7px 0}.day{min-height:55px;border:1px solid transparent;border-radius:14px;background:var(--calendar);color:var(--text);cursor:pointer;position:relative;transition:.2s}.day:hover{border-color:var(--primary);transform:translateY(-1px)}.day.other-month{opacity:.3}.day.today{border-color:var(--primary)}.day.selected{background:var(--primary);color:#fff}.day-number{position:absolute;top:7px;left:8px;font-size:11px;font-weight:700}.day-mood{display:block;margin-top:17px;font-size:22px}.selected-date{text-align:center;margin-top:13px;color:var(--text-soft);font-size:13px}
+.moods{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}.mood{border:2px solid transparent;background:var(--card-soft);color:var(--text);border-radius:18px;padding:11px 5px;cursor:pointer;text-align:center;min-width:0;transition:.2s}.mood:hover{transform:translateY(-2px)}.mood.selected{border-color:var(--primary);background:var(--primary-light)}.emoji{display:block;font-size:34px}.mood-name{display:block;margin-top:4px;color:var(--text-soft);font-size:10px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.custom-mood-tools{display:flex;justify-content:center;gap:2px;margin-top:5px}.mood-tool{border:0;background:transparent;color:var(--text-soft);cursor:pointer;padding:2px 5px}.mood-main{border:0;background:transparent;color:inherit;cursor:pointer}
+.activities{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.activity{display:flex;align-items:center;gap:8px;background:var(--card-soft);border:1px solid transparent;border-radius:14px;padding:10px;color:var(--text);transition:.2s}.activity:hover{border-color:var(--border)}.activity input{width:18px;height:18px;accent-color:var(--primary-dark)}.activity-name{flex:1}.activity-delete{border:0;background:transparent;color:var(--text-soft);cursor:pointer;font-size:16px}.activity-delete:hover{color:var(--danger)}
+.field{display:grid;gap:7px;font-size:14px;font-weight:750}textarea,input[type=text]{width:100%;border:1px solid var(--border);border-radius:14px;padding:12px;background:var(--input);color:var(--text);outline:none;transition:.2s}textarea:focus,input[type=text]:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-light)}.free-writing{min-height:220px;line-height:1.6}
+.photo-drop{border:2px dashed var(--border);border-radius:20px;padding:25px 15px;text-align:center;background:var(--card-soft);cursor:pointer;transition:.2s;display:block}.photo-drop.dragging,.photo-drop:hover{border-color:var(--primary);background:var(--primary-light)}.photo-drop strong{display:block;margin-bottom:5px}.photo-drop span{color:var(--text-soft);font-size:13px}#photo{display:none}#preview{display:none;max-width:100%;max-height:270px;object-fit:cover;border-radius:16px;margin:15px auto 0}
+.save{width:100%;border:0;border-radius:16px;padding:15px;background:var(--primary);color:#fff;font-weight:800;cursor:pointer;transition:.2s}.save:hover{background:var(--primary-dark);transform:translateY(-1px)}
+.stats-header{margin-bottom:18px}.stats-month{color:var(--text-soft);font-size:13px}.stat-row{margin:14px 0}.stat-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;font-size:13px}.stat-label{display:flex;align-items:center;gap:7px}.stat-bar{height:9px;background:var(--primary-light);border-radius:999px;overflow:hidden}.stat-fill{height:100%;width:0;background:var(--progress);border-radius:999px;transition:width .5s}.stat-summary{margin-top:17px;padding-top:14px;border-top:1px solid var(--border);color:var(--text-soft);font-size:13px}
+.history-panel{display:none}.history-panel.open{display:block}.timeline{position:relative;margin-top:20px;padding-left:22px}.timeline::before{content:"";position:absolute;left:6px;top:4px;bottom:4px;width:2px;background:var(--border)}.history-card{position:relative;background:var(--card-soft);border:1px solid var(--border);border-radius:18px;padding:16px;margin-bottom:14px}.history-card::before{content:"";position:absolute;left:-21px;top:20px;width:10px;height:10px;border-radius:50%;background:var(--primary);border:3px solid var(--card)}.history-date{color:var(--text-soft);font-size:12px;font-weight:800}.history-mood{display:flex;align-items:center;gap:10px;margin-top:7px}.history-mood-emoji{font-size:30px}.history-mood-name{font-weight:800}.tags{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}.tag{background:var(--primary-light);color:var(--primary-dark);border-radius:999px;padding:5px 9px;font-size:11px;font-weight:700}.history-preview{color:var(--text-soft);font-size:13px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.history-image{width:100%;max-height:190px;object-fit:cover;border-radius:14px;margin-top:10px}.history-actions{display:flex;justify-content:flex-end;margin-top:12px}.modal-overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(10,25,40,.45);z-index:100}.modal-overlay.active{display:flex}.modal{width:min(420px,100%);background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.2)}.modal h3{margin:0 0 7px}.modal p{margin-top:0;color:var(--text-soft);font-size:13px}.modal-actions{display:flex;gap:8px;margin-top:15px}.modal-actions button{flex:1;border:0;border-radius:12px;padding:12px;cursor:pointer;font-weight:750}.cancel{background:var(--card-soft);color:var(--text)}.confirm{background:var(--primary);color:#fff}.empty{color:var(--text-soft);font-size:13px;padding:10px 0}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+@media(max-width:600px){.app{padding:18px 11px 40px}.card{padding:16px;border-radius:20px}.theme-toggle{position:relative;display:block;margin:12px auto 0}.moods{gap:5px}.emoji{font-size:27px}.mood{padding:9px 2px}.mood-name{font-size:8px}.activities{grid-template-columns:1fr}.day{min-height:49px}.day-mood{font-size:19px}.weekdays div{font-size:9px}.logo{font-size:34px}}
+@media(max-width:360px){.day{min-height:44px}.day-mood{font-size:17px}.day-number{font-size:9px}}
+
+.color-button{width:24px;height:24px;border:2px solid var(--card);outline:1px solid transparent;border-radius:50%;cursor:pointer;padding:0;transition:transform .18s,outline-color .18s}
+.color-button:hover{transform:scale(1.1)}
+.color-button.active{outline:2px solid var(--primary-dark);outline-offset:2px}
+.color-blue{background:#8eb9d8}.color-wine{background:#8f3f50}.color-green{background:#5d9b70}
+@media(max-width:600px){.calendar-title-wrap{gap:8px}.color-picker{gap:5px}.color-button{width:20px;height:20px}.theme-toggle{position:relative;display:block;margin:0 auto}}
+.calendar-title-wrap{display:flex;align-items:center;gap:10px;min-width:0}.color-picker{display:flex;align-items:center;gap:5px;background:var(--card-soft);border:1px solid var(--border);border-radius:999px;padding:4px 6px}.color-button{width:20px;height:20px;border:2px solid var(--card);outline:1px solid transparent;border-radius:50%;cursor:pointer;padding:0;transition:transform .18s,outline-color .18s}.color-button:hover{transform:scale(1.08)}.color-button.active{outline:2px solid var(--primary-dark);outline-offset:1px}.color-blue{background:#8eb9d8}.color-wine{background:#8f3f50}.color-green{background:#5d9b70}
+/* Painel de estatísticas inspirado em apps de diário */
+.stats-dashboard{display:grid;gap:14px}
+.stats-card{background:var(--card-soft);border:1px solid var(--border);border-radius:20px;padding:17px}
+.stats-card h3{margin:0;font-size:19px}
+.stats-card-sub{margin:5px 0 0;color:var(--text-soft);font-size:13px}
+.streak-days{display:flex;gap:8px;overflow:auto;padding:15px 0 4px}
+.streak-day{min-width:57px;text-align:center}
+.streak-circle{width:45px;height:45px;margin:0 auto 6px;border:2px solid var(--border);border-radius:50%;display:grid;place-items:center;font-weight:800;color:var(--text-soft);background:var(--card)}
+.streak-circle.done{background:var(--primary);border-color:var(--primary);color:#fff}
+.streak-circle.today{border-color:var(--primary-dark);box-shadow:0 0 0 3px var(--primary-light)}
+.streak-label{font-size:10px;color:var(--text-soft);font-weight:750}
+.streak-best{margin-top:13px;padding-top:13px;border-top:1px solid var(--border);color:var(--text-soft);font-size:13px}
+.streak-best strong{color:var(--text)}
+.mood-chart-wrap{margin-top:15px;overflow:hidden;border-radius:14px}
+.mood-chart{width:100%;height:220px;display:block}
+.chart-grid{stroke:var(--border);stroke-width:1}
+.chart-label{fill:var(--text-soft);font-size:11px}
+.chart-line{fill:none;stroke:var(--primary);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.chart-area{fill:var(--primary-light);opacity:.65}
+.chart-point{fill:var(--primary);stroke:var(--card-soft);stroke-width:3}
+.chart-empty{fill:var(--text-soft);font-size:13px}
+.stats-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:13px}
+.activity-filter{border:1px solid var(--border);border-radius:999px;background:var(--card);color:var(--text);padding:9px 13px;outline:none;min-width:150px}
+.achievement-list{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}
+.achievement{border:1px solid var(--border);border-radius:16px;padding:12px;text-align:center;background:var(--card)}
+.achievement.locked{opacity:.5}
+.achievement-icon{font-size:25px;display:block;margin-bottom:5px}
+.achievement-name{font-size:11px;font-weight:800}
+.achievement-desc{font-size:10px;color:var(--text-soft);margin-top:3px}
+.stats-summary-new{margin-top:12px;color:var(--text-soft);font-size:13px}
+@media(max-width:600px){
+  .achievement-list{grid-template-columns:repeat(3,1fr)}
+  .stats-card{padding:15px}
+  .stats-card h3{font-size:18px}
+  .mood-chart{height:190px}
+}
+
+/* Cores tipográficas adaptadas ao tema */
+body.theme-wine{--text:#5a2937;--text-soft:#825d68}
+body.theme-green{--text:#284b35;--text-soft:#5e7867}
+body.space-theme{--text:#dcecff;--text-soft:#9db2d0}
+body.space-theme.theme-wine{--text:#f6dfe6;--text-soft:#cba9b5}
+body.space-theme.theme-green{--text:#ddf2e3;--text-soft:#a8c4af}
+body.space-theme .logo{color:#e8f3ff;text-shadow:0 0 10px rgba(145,190,255,.35),0 0 28px rgba(80,130,220,.28)}
+body.space-theme .logo span{color:var(--primary-dark)}
+body.space-theme .logo-subtitle{color:var(--text-soft)}
+body.space-theme .card{background:linear-gradient(145deg,rgba(16,31,52,.94),rgba(10,24,43,.92));border-color:rgba(91,124,172,.55);box-shadow:0 18px 45px rgba(0,0,0,.34),inset 0 1px 0 rgba(180,210,255,.06)}
+body.space-theme .calendar-title,
+body.space-theme h2,
+body.space-theme h3,
+body.space-theme .field,
+body.space-theme .achievement-name,
+body.space-theme .history-mood-name{color:var(--text)}
+body.space-theme .selected-date,
+body.space-theme .stats-month,
+body.space-theme .stats-card-sub,
+body.space-theme .stats-summary-new,
+body.space-theme .stats-summary,
+body.space-theme .history-date,
+body.space-theme .history-preview,
+body.space-theme .streak-label,
+body.space-theme .streak-best,
+body.space-theme .mood-name{color:var(--text-soft)}
+body.theme-wine .logo span{color:var(--primary-dark)}
+body.theme-green .logo span{color:var(--primary-dark)}
+
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+<button id="themeToggle" class="theme-toggle" type="button" aria-label="Alternar entre modo dia e modo espacial" title="Alternar tema"></button>
+<h1 class="logo">Space<span>time</span></h1>
+<p class="logo-subtitle">✦ Um cantinho só seu para guardar o dia ✦</p><div aria-hidden="true" style="margin-top:10px;color:var(--primary-dark);letter-spacing:8px;font-size:10px;opacity:.8">·  ·  ✦  ·  ·</div>
+</header>
+
+
+<section class="card" id="emailCard">
+  <label class="field" for="userEmail">
+    <span>Seu e-mail</span>
+    <input id="userEmail" type="email" autocomplete="email" placeholder="seuemail@exemplo.com" aria-label="Seu e-mail">
+  </label>
+  <p id="emailStatus" class="selected-date" style="margin-bottom:0">Seu e-mail fica salvo neste navegador para identificar seus dados.</p>
+</section>
+
+<section class="card">
+<div class="calendar-header">
+<div class="calendar-title-wrap">
+<strong id="calendarTitle" class="calendar-title"></strong>
+<div class="color-picker" aria-label="Escolher cor do SpaceTime" title="Escolher cor">
+<button class="color-button color-blue" data-color="blue" type="button" aria-label="Tema azul" title="Azul"></button>
+<button class="color-button color-wine" data-color="wine" type="button" aria-label="Tema vinho" title="Vinho"></button>
+<button class="color-button color-green" data-color="green" type="button" aria-label="Tema verde" title="Verde"></button>
+</div>
+</div>
+<div class="calendar-nav"><button id="prevMonth" class="nav-button" type="button" aria-label="Mês anterior">‹</button><button id="nextMonth" class="nav-button" type="button" aria-label="Próximo mês">›</button></div>
+</div>
+<div class="weekdays"><div>DOM</div><div>SEG</div><div>TER</div><div>QUA</div><div>QUI</div><div>SEX</div><div>SÁB</div></div>
+<div id="calendarGrid" class="calendar-grid"></div>
+<div id="selectedDate" class="selected-date"></div>
+</section>
+
+<section class="card">
+<div class="stats-header"><h2>Estatísticas</h2><span id="statsMonth" class="stats-month"></span></div>
+<div class="stats-dashboard">
+
+<div class="stats-card">
+  <h3>Dias seguidos</h3>
+  <p class="stats-card-sub">Continue registrando seus dias para acompanhar sua sequência.</p>
+  <div id="streakDays" class="streak-days"></div>
+  <div id="streakBest" class="streak-best"></div>
+</div>
+
+<div class="stats-card">
+  <h3>Gráfico de humor</h3>
+  <p class="stats-card-sub">Veja como seu humor variou ao longo do mês.</p>
+  <div class="mood-chart-wrap">
+    <svg id="moodChart" class="mood-chart" viewBox="0 0 640 220" role="img" aria-label="Gráfico de humor do mês"></svg>
+  </div>
+  <div class="stats-controls">
+    <span id="chartMonthLabel" class="stats-month"></span>
+    <select id="activityFilter" class="activity-filter" aria-label="Filtrar gráfico por atividade">
+      <option value="">Todas as atividades</option>
+    </select>
+  </div>
+</div>
+
+<div class="stats-card">
+  <h3>Conquistas</h3>
+  <p class="stats-card-sub">Pequenas marcas para acompanhar sua jornada no diário.</p>
+  <div id="achievementList" class="achievement-list"></div>
+</div>
+
+<div class="stats-card">
+  <div id="statsContainer"></div>
+  <div id="statsSummary" class="stats-summary-new"></div>
+</div>
+
+</div>
+</section>
+
+<section class="card">
+<div class="section-title-row"><h2>Como você está se sentindo?</h2><button id="addMood" class="add-button" type="button" aria-label="Adicionar novo emoji de humor" title="Adicionar humor">+</button></div>
+<div id="moods" class="moods">
+<button class="mood" data-mood="Muito feliz" type="button" aria-label="Humor: muito feliz"><span class="emoji">😄</span><span class="mood-name">Muito feliz</span></button>
+<button class="mood" data-mood="Feliz" type="button" aria-label="Humor: feliz"><span class="emoji">🙂</span><span class="mood-name">Feliz</span></button>
+<button class="mood" data-mood="Neutro" type="button" aria-label="Humor: neutro"><span class="emoji">😐</span><span class="mood-name">Neutro</span></button>
+<button class="mood" data-mood="Triste" type="button" aria-label="Humor: triste"><span class="emoji">🙁</span><span class="mood-name">Triste</span></button>
+<button class="mood" data-mood="Muito triste" type="button" aria-label="Humor: muito triste"><span class="emoji">😢</span><span class="mood-name">Muito triste</span></button>
+</div>
+</section>
+
+<section class="card">
+<div class="section-title-row"><h2>O que você fez hoje?</h2><button id="addActivity" class="add-button" type="button" aria-label="Adicionar atividade" title="Adicionar atividade">+</button></div>
+<div id="activities" class="activities"></div>
+</section>
+
+<section class="card"><label class="field" for="what"><span>Como foi seu dia?</span><textarea id="what" rows="4" placeholder="Conte um pouquinho sobre como foi seu dia..."></textarea></label></section>
+<section class="card"><textarea id="freeWriting" class="free-writing" aria-label="Espaço para escrita livre" placeholder=""></textarea></section>
+
+<section class="card">
+<h2>Uma foto do dia</h2>
+<label id="photoDrop" class="photo-drop" for="photo"><strong>Arraste uma imagem aqui</strong><span>ou toque para escolher uma foto</span><input id="photo" type="file" accept="image/*" aria-label="Selecionar foto do dia"><img id="preview" alt="Prévia da foto selecionada"></label>
+</section>
+
+<section class="card"><button id="save" class="save" type="button">Salvar no Diário</button></section>
+
+<section class="card">
+<button id="historyToggle" class="save" type="button" aria-expanded="false">Histórico de Dias</button>
+<div id="historyPanel" class="history-panel"><div id="entries"></div></div>
+</section>
+</div>
+
+<div id="activityModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="activityModalTitle"><div class="modal"><h3 id="activityModalTitle">Nova atividade</h3><p>Digite uma atividade para adicionar.</p><input id="newActivity" type="text" placeholder="Ex.: Assistir filme" aria-label="Nome da nova atividade"><div class="modal-actions"><button class="cancel" type="button" onclick="closeModal('activityModal')">Cancelar</button><button id="confirmActivity" class="confirm" type="button">Adicionar</button></div></div></div>
+
+<div id="moodModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="moodModalTitle"><div class="modal"><h3 id="moodModalTitle">Adicionar humor</h3><p>Escolha um emoji e dê uma descrição para ele.</p><input id="newMoodEmoji" type="text" placeholder="Emoji: 💻" aria-label="Novo emoji"><input id="newMoodDescription" type="text" placeholder="Descrição: Focado" aria-label="Descrição do novo emoji" style="margin-top:9px"><div class="modal-actions"><button class="cancel" type="button" onclick="closeModal('moodModal')">Cancelar</button><button id="confirmMood" class="confirm" type="button">Adicionar</button></div></div></div>
+
+<div id="editMoodModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="editMoodTitle"><div class="modal"><h3 id="editMoodTitle">Editar significado</h3><p>Altere a descrição desse emoji.</p><input id="editMoodDescription" type="text" placeholder="Ex.: Focado" aria-label="Editar descrição do emoji"><div class="modal-actions"><button class="cancel" type="button" onclick="closeModal('editMoodModal')">Cancelar</button><button id="confirmEditMood" class="confirm" type="button">Salvar</button></div></div></div>
+
+<script>
+const ENTRY_KEY="spacetimeDiarioEntradas",MOOD_KEY="spacetimeHumoresPersonalizados",ACTIVITY_KEY="spacetimeAtividades",REMOVED_ACTIVITY_KEY="spacetimeAtividadesRemovidas",THEME_KEY="spacetimeTema",COLOR_KEY="spacetimeCor",EMAIL_KEY="spacetimeEmail";
+const DEFAULT_ACTIVITIES=["Estudar","Exercícios","Jogar","Família","Amigos","Descansar"];
+const MOODS=[{name:"Muito feliz",emoji:"😄"},{name:"Feliz",emoji:"🙂"},{name:"Neutro",emoji:"😐"},{name:"Triste",emoji:"🙁"},{name:"Muito triste",emoji:"😢"}];
+let selectedMood=null,photoData="",selectedDate=getToday(),calendarDate=new Date(),editingMoodIndex=null;
+const $=id=>document.getElementById(id);
+function getToday(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
+function formatDate(v){const[y,m,d]=v.split("-");return `${d}/${m}/${y}`}
+function escapeHTML(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+function getEntries(){try{return JSON.parse(localStorage.getItem(ENTRY_KEY))||[]}catch{return[]}}
+function saveEntries(e){localStorage.setItem(ENTRY_KEY,JSON.stringify(e))}
+function getCustomMoods(){try{return JSON.parse(localStorage.getItem(MOOD_KEY))||[]}catch{return[]}}
+function saveCustomMoods(m){localStorage.setItem(MOOD_KEY,JSON.stringify(m))}
+
+function loadUserEmail(){
+  const email=localStorage.getItem(EMAIL_KEY)||"";
+  $("userEmail").value=email;
+  $("emailStatus").textContent=email
+    ? "E-mail salvo neste navegador."
+    : "Seu e-mail fica salvo neste navegador para identificar seus dados.";
+}
+$("userEmail").addEventListener("change",()=>{
+  const email=$("userEmail").value.trim();
+  if(email && $("userEmail").checkValidity()){
+    localStorage.setItem(EMAIL_KEY,email);
+    $("emailStatus").textContent="E-mail salvo neste navegador.";
+  }else if(!email){
+    localStorage.removeItem(EMAIL_KEY);
+    $("emailStatus").textContent="Seu e-mail fica salvo neste navegador para identificar seus dados.";
+  }
+});
+
+function applyColor(color){
+  if(!["blue","wine","green"].includes(color))color="blue";
+  document.body.classList.remove("theme-wine","theme-green");
+  if(color!=="blue")document.body.classList.add("theme-"+color);
+  document.querySelectorAll(".color-button").forEach(b=>b.classList.toggle("active",b.dataset.color===color));
+  localStorage.setItem(COLOR_KEY,color);
+}
+function loadTheme(){
+  if(localStorage.getItem(THEME_KEY)==="space")document.body.classList.add("space-theme");
+  applyColor(["blue","wine","green"].includes(localStorage.getItem(COLOR_KEY))?localStorage.getItem(COLOR_KEY):"blue");
+}
+$("themeToggle").addEventListener("click",()=>{
+  const s=document.body.classList.toggle("space-theme");
+  localStorage.setItem(THEME_KEY,s?"space":"day");
+});
+document.querySelectorAll(".color-button").forEach(b=>{
+  b.addEventListener("click",()=>applyColor(b.dataset.color));
+});
+
+function getCustomActivities(){try{return JSON.parse(localStorage.getItem(ACTIVITY_KEY))||[]}catch{return[]}}
+function saveCustomActivities(a){localStorage.setItem(ACTIVITY_KEY,JSON.stringify(a))}
+function getRemovedActivities(){try{return JSON.parse(localStorage.getItem(REMOVED_ACTIVITY_KEY))||[]}catch{return[]}}
+function saveRemovedActivities(a){localStorage.setItem(REMOVED_ACTIVITY_KEY,JSON.stringify(a))}
+function getAllActivities(){const r=getRemovedActivities(),c=getCustomActivities();return [...DEFAULT_ACTIVITIES,...c].filter((a,i,arr)=>arr.indexOf(a)===i&&!r.includes(a))}
+function renderActivities(){const c=$("activities");c.innerHTML="";getAllActivities().forEach(a=>{const l=document.createElement("label");l.className="activity";l.innerHTML=`<input type="checkbox" value="${escapeHTML(a)}"><span class="activity-name">${escapeHTML(a)}</span><button type="button" class="activity-delete" aria-label="Excluir atividade ${escapeHTML(a)}" title="Excluir atividade">×</button>`;l.querySelector(".activity-delete").addEventListener("click",e=>{e.preventDefault();e.stopPropagation();deleteActivity(a)});c.appendChild(l)})}
+function deleteActivity(a){if(!confirm(`Excluir a atividade "${a}"?`))return;const r=getRemovedActivities();if(!r.includes(a))r.push(a);saveRemovedActivities(r);saveCustomActivities(getCustomActivities().filter(x=>x!==a));renderActivities()}
+$("addActivity").addEventListener("click",()=>{$("newActivity").value="";$("activityModal").classList.add("active");setTimeout(()=>$("newActivity").focus(),50)});
+$("confirmActivity").addEventListener("click",()=>{const n=$("newActivity").value.trim();if(!n)return alert("Digite o nome da atividade.");const a=getCustomActivities(),r=getRemovedActivities();if(!getAllActivities().includes(n))a.push(n);saveCustomActivities(a);saveRemovedActivities(r.filter(x=>x!==n));renderActivities();closeModal("activityModal")});
+
+function renderCalendar(){
+ const year=calendarDate.getFullYear(),month=calendarDate.getMonth(),names=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+ $("calendarTitle").textContent=`${names[month]} ${year}`;const g=$("calendarGrid");g.innerHTML="";
+ const first=new Date(year,month,1).getDay(),days=new Date(year,month+1,0).getDate(),prev=new Date(year,month,0).getDate(),entries=getEntries();
+ for(let i=first-1;i>=0;i--)createDay(prev-i,true);
+ for(let d=1;d<=days;d++)createDay(d,false);
+ const rem=(first+days)%7===0?0:7-(first+days)%7;for(let i=1;i<=rem;i++)createDay(i,true);
+ $("selectedDate").textContent=`Dia selecionado: ${formatDate(selectedDate)}`;
+ function createDay(d,other){
+  const b=document.createElement("button");b.type="button";b.className="day"+(other?" other-month":"");
+  if(other){b.textContent=d;g.appendChild(b);return}
+  const date=`${year}-${String(month+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`,entry=entries.find(x=>x.date===date);
+  b.innerHTML=`<span class="day-number">${d}</span>${entry?`<span class="day-mood" aria-label="Humor do dia: ${escapeHTML(entry.mood)}">${escapeHTML(entry.emoji)}</span>`:""}`;
+  if(date===selectedDate)b.classList.add("selected");if(date===getToday())b.classList.add("today");
+  b.setAttribute("aria-label",entry?`${formatDate(date)} — ${entry.mood}`:formatDate(date));
+  b.addEventListener("click",()=>{selectedDate=date;loadDate(date);renderCalendar();updateStats()});g.appendChild(b);
+ }
+}
+$("prevMonth").addEventListener("click",()=>{calendarDate.setMonth(calendarDate.getMonth()-1);renderCalendar();updateStats()});
+$("nextMonth").addEventListener("click",()=>{calendarDate.setMonth(calendarDate.getMonth()+1);renderCalendar();updateStats()});
+
+function selectMood(b){document.querySelectorAll(".mood").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");selectedMood={name:b.dataset.mood,emoji:b.querySelector(".emoji").textContent}}
+document.querySelectorAll(".mood").forEach(b=>b.addEventListener("click",()=>selectMood(b)));
+function renderCustomMoods(){
+ document.querySelectorAll(".custom-mood").forEach(x=>x.remove());
+ getCustomMoods().forEach((m,i)=>{const w=document.createElement("div");w.className="mood custom-mood";w.dataset.mood=m.description;w.innerHTML=`<button class="mood-main" type="button" aria-label="Humor personalizado: ${escapeHTML(m.description)}"><span class="emoji">${escapeHTML(m.emoji)}</span><span class="mood-name">${escapeHTML(m.description)}</span></button><div class="custom-mood-tools"><button class="mood-tool edit" type="button" aria-label="Editar descrição do emoji" title="Editar">✎</button><button class="mood-tool remove" type="button" aria-label="Excluir emoji personalizado" title="Excluir">×</button></div>`;w.querySelector(".mood-main").addEventListener("click",()=>selectMood(w));w.querySelector(".edit").addEventListener("click",e=>{e.stopPropagation();openEditMood(i)});w.querySelector(".remove").addEventListener("click",e=>{e.stopPropagation();deleteCustomMood(i)});$("moods").appendChild(w)})
+}
+$("addMood").addEventListener("click",()=>{$("newMoodEmoji").value="";$("newMoodDescription").value="";$("moodModal").classList.add("active");setTimeout(()=>$("newMoodEmoji").focus(),50)});
+$("confirmMood").addEventListener("click",()=>{const emoji=$("newMoodEmoji").value.trim(),description=$("newMoodDescription").value.trim();if(!emoji)return alert("Digite ou cole um emoji.");if(!description)return alert("Digite uma descrição para o emoji.");const m=getCustomMoods();m.push({emoji,description});saveCustomMoods(m);renderCustomMoods();closeModal("moodModal")});
+function openEditMood(i){const m=getCustomMoods();if(!m[i])return;editingMoodIndex=i;$("editMoodDescription").value=m[i].description;$("editMoodModal").classList.add("active")}
+$("confirmEditMood").addEventListener("click",()=>{if(editingMoodIndex===null)return;const d=$("editMoodDescription").value.trim();if(!d)return alert("Digite uma descrição.");const m=getCustomMoods();m[editingMoodIndex].description=d;saveCustomMoods(m);renderCustomMoods();editingMoodIndex=null;closeModal("editMoodModal")});
+function deleteCustomMood(i){const m=getCustomMoods();if(!m[i]||!confirm("Excluir este emoji da sua lista?"))return;m.splice(i,1);saveCustomMoods(m);renderCustomMoods()}
+
+const photoDrop=$("photoDrop"),photoInput=$("photo");
+photoDrop.addEventListener("dragover",e=>{e.preventDefault();photoDrop.classList.add("dragging")});
+photoDrop.addEventListener("dragleave",()=>photoDrop.classList.remove("dragging"));
+photoDrop.addEventListener("drop",e=>{e.preventDefault();photoDrop.classList.remove("dragging");const f=e.dataTransfer.files[0];if(f)processImage(f)});
+photoInput.addEventListener("change",e=>{const f=e.target.files[0];if(f)processImage(f)});
+function processImage(file){
+ if(!file.type.startsWith("image/"))return alert("Selecione uma imagem válida.");
+ const r=new FileReader();r.onload=e=>{const img=new Image();img.onload=()=>{const max=1000;let w=img.width,h=img.height;if(w>max||h>max){if(w>h){h=Math.round(h*max/w);w=max}else{w=Math.round(w*max/h);h=max}}const c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(img,0,0,w,h);photoData=c.toDataURL("image/jpeg",.72);$("preview").src=photoData;$("preview").style.display="block"};img.src=e.target.result};r.readAsDataURL(file)
+}
+
+function clearForm(){selectedMood=null;document.querySelectorAll(".mood").forEach(b=>b.classList.remove("selected"));document.querySelectorAll(".activity input").forEach(i=>i.checked=false);$("what").value="";$("freeWriting").value="";photoData="";$("photo").value="";$("preview").src="";$("preview").style.display="none"}
+function loadDate(date){
+ clearForm();const e=getEntries().find(x=>x.date===date);if(!e)return;
+ let b=[...document.querySelectorAll(".mood")].find(x=>x.dataset.mood===e.mood&&x.querySelector(".emoji").textContent===e.emoji);
+ if(!b){b=document.createElement("button");b.className="mood";b.dataset.mood=e.mood;b.type="button";b.innerHTML=`<span class="emoji">${escapeHTML(e.emoji)}</span><span class="mood-name">${escapeHTML(e.mood)}</span>`;b.addEventListener("click",()=>selectMood(b));$("moods").appendChild(b)}selectMood(b);
+ (e.activities||[]).forEach(a=>{let i=[...document.querySelectorAll(".activity input")].find(x=>x.value===a);if(!i){const l=document.createElement("label");l.className="activity";l.innerHTML=`<input type="checkbox" value="${escapeHTML(a)}"><span class="activity-name">${escapeHTML(a)}</span><button type="button" class="activity-delete" aria-label="Excluir atividade">×</button>`;l.querySelector(".activity-delete").addEventListener("click",ev=>{ev.preventDefault();ev.stopPropagation();deleteActivity(a)});$("activities").appendChild(l);i=l.querySelector("input")}i.checked=true});
+ $("what").value=e.what||"";$("freeWriting").value=e.freeWriting||"";photoData=e.photo||"";if(photoData){$("preview").src=photoData;$("preview").style.display="block"}
+}
+$("save").addEventListener("click",()=>{if(!selectedMood)return alert("Escolha como você está se sentindo.");const activities=[...document.querySelectorAll(".activity input:checked")].map(i=>i.value),e={id:Date.now(),date:selectedDate,mood:selectedMood.name,emoji:selectedMood.emoji,activities,what:$("what").value.trim(),freeWriting:$("freeWriting").value,photo:photoData},entries=getEntries(),idx=entries.findIndex(x=>x.date===selectedDate);if(idx!==-1){e.id=entries[idx].id;entries[idx]=e}else entries.unshift(e);saveEntries(entries);renderCalendar();updateStats();renderHistory();alert("Entrada salva no SpaceTime.")});
+
+function updateStats(){
+  const year=calendarDate.getFullYear(),month=calendarDate.getMonth();
+  const names=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+  const monthName=names[month];
+  $("statsMonth").textContent=`${monthName} ${year}`;
+  $("chartMonthLabel").textContent=`${monthName} ${year}`;
+
+  const allEntries=getEntries();
+  const entries=allEntries.filter(e=>{
+    const [y,m]=e.date.split("-").map(Number);
+    return y===year&&m===month+1
+  });
+
+  renderStreak(allEntries);
+  renderMoodChart(entries, $("activityFilter").value);
+  renderAchievements(allEntries);
+
+  const filter=$("activityFilter");
+  const current=filter.value;
+  filter.innerHTML='<option value="">Todas as atividades</option>';
+  [...new Set(allEntries.flatMap(e=>e.activities||[]))].sort((a,b)=>a.localeCompare(b,"pt-BR")).forEach(a=>{
+    const o=document.createElement("option");o.value=a;o.textContent=a;filter.appendChild(o)
+  });
+  if([...filter.options].some(o=>o.value===current))filter.value=current;
+
+  const c=$("statsContainer");
+  c.innerHTML="";
+  const moods=[...MOODS,...getCustomMoods().map(m=>({name:m.description,emoji:m.emoji}))],unique=[];
+  moods.forEach(m=>{if(!unique.some(x=>x.name===m.name))unique.push(m)});
+  if(!entries.length){
+    c.innerHTML='<div class="empty">Nenhum registro neste mês.</div>';
+    $("statsSummary").textContent="Registre um dia para começar a acompanhar seus sentimentos.";
+    return
+  }
+  unique.forEach(m=>{
+    const count=entries.filter(e=>e.mood===m.name).length;
+    if(!count)return;
+    const p=Math.round(count/entries.length*100),row=document.createElement("div");
+    row.className="stat-row";
+    row.innerHTML=`<div class="stat-top"><span class="stat-label"><span>${escapeHTML(m.emoji)}</span><span>${escapeHTML(m.name)}</span></span><strong>${count} · ${p}%</strong></div><div class="stat-bar"><div class="stat-fill" style="width:${p}%"></div></div>`;
+    c.appendChild(row)
+  });
+  $("statsSummary").textContent=`${entries.length} ${entries.length===1?"dia registrado":"dias registrados"} neste mês.`;
+}
+
+function getDateKey(date){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`}
+function addDays(date,n){const d=new Date(date);d.setDate(d.getDate()+n);return d}
+
+function renderStreak(allEntries){
+  const set=new Set(allEntries.map(e=>e.date));
+  const today=new Date();
+  const box=$("streakDays");box.innerHTML="";
+  for(let i=4;i>=0;i--){
+    const d=addDays(today,-i),key=getDateKey(d),done=set.has(key);
+    const item=document.createElement("div");item.className="streak-day";
+    item.innerHTML=`<div class="streak-circle ${done?"done ":""}${i===0?"today":""}">${done?"✓":d.getDate()}</div><div class="streak-label">${i===0?"Hoje":d.toLocaleDateString("pt-BR",{weekday:"short"}).replace(".","")}</div>`;
+    box.appendChild(item)
+  }
+  let current=0,d=new Date(today);
+  while(set.has(getDateKey(d))){current++;d.setDate(d.getDate()-1)}
+  let best=0,run=0;
+  const sorted=[...set].sort();
+  for(let i=0;i<sorted.length;i++){
+    run=i>0 && Math.round((new Date(sorted[i]+"T00:00:00")-new Date(sorted[i-1]+"T00:00:00"))/86400000)===1?run+1:1;
+    best=Math.max(best,run)
+  }
+  $("streakBest").innerHTML=`🏆 Sequência atual: <strong>${current}</strong> dia${current===1?"":"s"} · Melhor sequência: <strong>${best}</strong>`;
+}
+
+function renderMoodChart(entries,activity){
+  const svg=$("moodChart");svg.innerHTML="";
+  const W=640,H=220,left=42,right=14,top=14,bottom=28;
+  const innerW=W-left-right,innerH=H-top-bottom;
+  const values=[];
+  for(let day=1;day<=new Date(calendarDate.getFullYear(),calendarDate.getMonth()+1,0).getDate();day++){
+    const date=`${calendarDate.getFullYear()}-${String(calendarDate.getMonth()+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+    const e=entries.find(x=>x.date===date);
+    const moodIndex={"Muito triste":1,"Triste":2,"Neutro":3,"Feliz":4,"Muito feliz":5};
+    if(e && (!activity || (e.activities||[]).includes(activity)) && moodIndex[e.mood])values.push({day,v:moodIndex[e.mood]});
+  }
+  for(let v=1;v<=5;v++){
+    const y=top+innerH-(v-1)*innerH/4;
+    const line=document.createElementNS("http://www.w3.org/2000/svg","line");
+    line.setAttribute("x1",left);line.setAttribute("x2",W-right);line.setAttribute("y1",y);line.setAttribute("y2",y);line.setAttribute("class","chart-grid");svg.appendChild(line);
+    const t=document.createElementNS("http://www.w3.org/2000/svg","text");
+    t.setAttribute("x",8);t.setAttribute("y",y+4);t.setAttribute("class","chart-label");t.textContent=["","😢","🙁","😐","🙂","😄"][v];svg.appendChild(t)
+  }
+  if(!values.length){
+    const t=document.createElementNS("http://www.w3.org/2000/svg","text");
+    t.setAttribute("x",W/2);t.setAttribute("y",H/2);t.setAttribute("text-anchor","middle");t.setAttribute("class","chart-empty");
+    t.textContent="Registre seu humor para ver o gráfico.";svg.appendChild(t);return
+  }
+  const daysInMonth=new Date(calendarDate.getFullYear(),calendarDate.getMonth()+1,0).getDate();
+  const pts=values.map(o=>[left+(o.day-1)/(Math.max(1,daysInMonth-1))*innerW,top+innerH-(o.v-1)*innerH/4]);
+  let d=`M ${pts[0][0]} ${pts[0][1]}`;
+  for(let i=1;i<pts.length;i++){const [x0,y0]=pts[i-1],[x,y]=pts[i],mx=(x0+x)/2;d+=` C ${mx} ${y0}, ${mx} ${y}, ${x} ${y}`}
+  const area=d+` L ${pts[pts.length-1][0]} ${top+innerH} L ${pts[0][0]} ${top+innerH} Z`;
+  const areaPath=document.createElementNS("http://www.w3.org/2000/svg","path");areaPath.setAttribute("d",area);areaPath.setAttribute("class","chart-area");svg.appendChild(areaPath);
+  const path=document.createElementNS("http://www.w3.org/2000/svg","path");path.setAttribute("d",d);path.setAttribute("class","chart-line");svg.appendChild(path);
+  pts.forEach((p,i)=>{
+    const c=document.createElementNS("http://www.w3.org/2000/svg","circle");c.setAttribute("cx",p[0]);c.setAttribute("cy",p[1]);c.setAttribute("r",5);c.setAttribute("class","chart-point");c.setAttribute("aria-label",`Dia ${values[i].day}`);svg.appendChild(c)
+  });
+  [1,7,14,21,28].forEach(day=>{
+    if(day>daysInMonth)return;
+    const t=document.createElementNS("http://www.w3.org/2000/svg","text");
+    t.setAttribute("x",left+(day-1)/(Math.max(1,daysInMonth-1))*innerW);t.setAttribute("y",H-6);t.setAttribute("text-anchor","middle");t.setAttribute("class","chart-label");t.textContent=day;svg.appendChild(t)
+  })
+}
+
+function renderAchievements(allEntries){
+  const dates=new Set(allEntries.map(e=>e.date));
+  let best=0,run=0,prev=null;
+  [...dates].sort().forEach(v=>{
+    const d=new Date(v+"T00:00:00");
+    if(prev && Math.round((d-prev)/86400000)===1)run++;else run=1;
+    best=Math.max(best,run);prev=d
+  });
+  const achievements=[
+    {icon:"🌱",name:"Primeira viagem",desc:"Registrar 1 dia",ok:allEntries.length>=1},
+    {icon:"🔥",name:"Astronauta",desc:"7 dias seguidos",ok:best>=7},
+    {icon:"📖",name:"10 registros",desc:"Guardar 10 dias",ok:allEntries.length>=10},
+    {icon:"🌟",name:"Um mês",desc:"30 registros",ok:allEntries.length>=30},
+    {icon:"💫",name:"Sequência",desc:"14 dias seguidos",ok:best>=14},
+    {icon:"🏆",name:"Constância",desc:"60 registros",ok:allEntries.length>=60}
+  ];
+  $("achievementList").innerHTML=achievements.map(a=>`<div class="achievement ${a.ok?"":"locked"}"><span class="achievement-icon">${a.icon}</span><div class="achievement-name">${a.name}</div><div class="achievement-desc">${a.desc}</div></div>`).join("")
+}
+
+$("activityFilter").addEventListener("change",()=>updateStats());
+$("historyToggle").addEventListener("click",()=>{const p=$("historyPanel"),open=p.classList.toggle("open");$("historyToggle").setAttribute("aria-expanded",open)});
+function renderHistory(){
+ const entries=getEntries(),c=$("entries");if(!entries.length){c.innerHTML='<div class="empty">Nenhum dia registrado ainda.</div>';return}
+ const t=document.createElement("div");t.className="timeline";entries.forEach(e=>{const card=document.createElement("article");card.className="history-card";const acts=e.activities||[],preview=e.what||e.freeWriting||"Sem texto registrado.";card.innerHTML=`<div class="history-date">${formatDate(e.date)}</div><div class="history-mood"><span class="history-mood-emoji" aria-hidden="true">${escapeHTML(e.emoji)}</span><span class="history-mood-name">${escapeHTML(e.mood)}</span></div>${acts.length?`<div class="tags">${acts.map(a=>`<span class="tag">${escapeHTML(a)}</span>`).join("")}</div>`:""}${e.photo?`<img class="history-image" src="${e.photo}" alt="Foto registrada em ${formatDate(e.date)}">`:""}<div class="history-preview">${escapeHTML(preview)}</div><div class="history-actions"><button class="danger-button" type="button" aria-label="Excluir registro de ${formatDate(e.date)}">Excluir</button></div>`;card.querySelector(".danger-button").addEventListener("click",()=>removeEntry(e.id));card.addEventListener("dblclick",()=>{selectedDate=e.date;const[y,m]=e.date.split("-").map(Number);calendarDate=new Date(y,m-1,1);loadDate(selectedDate);renderCalendar();updateStats();scrollTo({top:0,behavior:"smooth"})});t.appendChild(card)});c.innerHTML="";c.appendChild(t)
+}
+function removeEntry(id){if(!confirm("Excluir este registro?"))return;saveEntries(getEntries().filter(e=>e.id!==id));renderCalendar();updateStats();renderHistory();if(!getEntries().some(e=>e.date===selectedDate))clearForm()}
+function closeModal(id){$(id).classList.remove("active")}
+document.querySelectorAll(".modal-overlay").forEach(m=>m.addEventListener("click",e=>{if(e.target===m)m.classList.remove("active")}));
+$("newActivity").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();$("confirmActivity").click()}});
+$("newMoodDescription").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();$("confirmMood").click()}});
+$("editMoodDescription").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();$("confirmEditMood").click()}});
+loadTheme();loadUserEmail();renderActivities();renderCustomMoods();renderCalendar();loadDate(selectedDate);updateStats();renderHistory();
+</script>
+</body>
+</html>
